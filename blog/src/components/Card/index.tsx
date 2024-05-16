@@ -1,15 +1,28 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../Button";
 import "../Card/style.css";
-import Image from "../../assets/images/default.png";
 import { ICardProps } from "./ICardProps";
 
 /** Componente de card */
-function Card({ title, name, description, image }: ICardProps) {
+function Card({
+	title,
+	name,
+	description,
+	image,
+	button,
+	id,
+	elipse,
+}: ICardProps) {
 	const navigate = useNavigate();
 
 	function commentHandleClick() {
-		navigate("/comment");
+		const publicacao = {
+			title,
+			name,
+			description,
+			image,
+		};
+		navigate(`/comment/${id}`, { state: { publicacao: publicacao } });
 	}
 
 	const pass = () => {
@@ -23,24 +36,26 @@ function Card({ title, name, description, image }: ICardProps) {
 					<div className="card-header">
 						<div className="d-flex">
 							<div className="ml-1">
-								<div className="text-weight-semi-bold text-up-02">
+								<div className="text-weight-semi-bold text-up-03">
 									{title}
 								</div>
 								<div>{name}</div>
 							</div>
-							<div className="ml-auto">
-								<Button
-									label=""
-									className="br-button circle"
-									icon={
-										<i
-											className="fas fa-ellipsis-v"
-											aria-hidden="true"
-										></i>
-									}
-									action={pass}
-								/>
-							</div>
+							{elipse ? (
+								<div className="ml-auto">
+									<Button
+										label=""
+										className="br-button circle"
+										icon={
+											<i
+												className="fas fa-ellipsis-v"
+												aria-hidden="true"
+											></i>
+										}
+										action={pass}
+									/>
+								</div>
+							) : null}
 						</div>
 					</div>
 
@@ -55,27 +70,23 @@ function Card({ title, name, description, image }: ICardProps) {
 									className="image"
 									alt="Avatar"
 								/>
-							) : (
-								<img
-									src={Image}
-									alt="Imagem padrão"
-									className="image"
-								/>
-							)}
+							) : null}
 						</div>
 						<p>{description}</p>
 					</div>
-					<div className="card-footer">
-						<div className="d-flex">
-							<div className="ml-auto">
-								<Button
-									className="br-button tertiary botao-com-alteracao"
-									action={commentHandleClick}
-									label="Comentar"
-								></Button>
+					{button ? (
+						<div className="card-footer">
+							<div className="d-flex">
+								<div className="ml-auto">
+									<Button
+										className="br-button tertiary botao-com-alteracao"
+										action={commentHandleClick}
+										label="Comentar"
+									></Button>
+								</div>
 							</div>
 						</div>
-					</div>
+					) : null}
 				</div>
 			</div>
 		</div>

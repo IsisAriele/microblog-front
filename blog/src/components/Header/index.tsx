@@ -43,7 +43,7 @@ function Header({ name }: IHeaderProps) {
 				<div className="container-lg">
 					<div className="header-top">
 						<div className="header-logo">
-							<a href="#">
+							<a href="/">
 								<img
 									src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Gov.br_logo.svg/1200px-Gov.br_logo.svg.png"
 									alt="logo gov.br"
