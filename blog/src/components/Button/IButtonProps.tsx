@@ -8,4 +8,5 @@ export interface IButtonProps {
 	/** Icone referente ao botão */
 	icon?: JSX.Element;
 	type?: "submit" | "reset" | "button" | undefined;
+	buttonId?: number;
 }

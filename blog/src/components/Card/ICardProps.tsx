@@ -1,10 +1,13 @@
 export interface ICardProps {
 	/** Título da publicação*/
-	title: string;
+	title?: string;
 	/** Nome do usuário da publicação */
-	name: string;
+	name?: string;
 	/** Texto da publicação */
 	description: string;
 	/** Pôster da publicação */
 	image?: string;
+	button?: boolean;
+	id?: number;
+	elipse?: boolean;
 }

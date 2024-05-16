@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 import PublishService from "../../services/PublishService";
+import Upload from "../../components/Upload";
 
 const schema = yup.object().shape({
 	titulo: yup
 		.string()
-		.max(30, "O título deve ter no máximo 30 caracteres!")
+		.max(200, "O título deve ter no máximo 200 caracteres!")
 		.required("Título é obrigatório!"),
 	imagem: yup.mixed().test("file", "A imagem é obrigatória!", (value) => {
 		let fileValue = value as FileList;
@@ -18,13 +19,17 @@ const schema = yup.object().shape({
 		}
 		return false;
 	}),
-	descricao: yup.string().required("Descrição é obrigatória!"),
+	descricao: yup
+		.string()
+		.max(1200, "A descrição deve ter no máximo 1200 caracteres!")
+		.required("Descrição é obrigatória!"),
 });
 
 function Publish() {
 	const {
 		register,
 		handleSubmit,
+		control,
 		formState: { errors },
 	} = useForm({
 		resolver: yupResolver(schema),
@@ -88,60 +93,20 @@ function Publish() {
 										)}
 									</div>
 
-									<div
+									<Upload
+										label="Imagem:"
+										name="imagem"
+										error={errors.imagem?.message}
+										control={control}
+									/>
+
+									{/* <div
 										className={`br-input ${errors.imagem !== undefined ? "danger" : ""}`}
 									>
 										<input
 											type="file"
 											{...register("imagem")}
 										/>
-										{errors.imagem !== undefined && (
-											<span
-												className="feedback danger"
-												role="alert"
-												id="danger"
-											>
-												<i
-													className="fas fa-times-circle"
-													aria-hidden="true"
-												></i>
-												{errors.imagem?.message}
-											</span>
-										)}
-									</div>
-
-									{/* <div
-										className={`br-input ${errors.imagem !== undefined ? "danger" : ""}`}
-									>
-										<div className="br-upload">
-											<label
-												className="upload-label"
-												htmlFor="single-file"
-											>
-												<span>Envio de imagem:</span>
-											</label>
-
-											<input
-												className="upload-input"
-												id="single-file"
-												type="file"
-												aria-label="enviar arquivo"
-												{...register("imagem")}
-											/>
-
-											<button
-												className="upload-button"
-												type="button"
-												aria-hidden="true"
-											>
-												<i
-													className="fas fa-upload"
-													aria-hidden="true"
-												></i>
-												<span>Selecione o arquivo</span>
-											</button>
-											<div className="upload-list"></div>
-										</div>
 										{errors.imagem !== undefined && (
 											<span
 												className="feedback danger"

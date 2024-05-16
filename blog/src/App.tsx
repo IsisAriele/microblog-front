@@ -4,13 +4,7 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Publish from "./pages/Publish";
-// import useAuth from "./hooks/useAuth";
-
-// const Private = ({ Item }) => {
-// 	const { signed } = useAuth();
-
-// 	return signed > 0 ? <Item /> : <Login />;
-// };
+import Comment from "./pages/Comment";
 
 function App() {
 	return (
@@ -34,7 +28,10 @@ function App() {
 						path="/publish"
 						element={<Publish />}
 					/>
-					<Route path="/comment" />
+					<Route
+						path="/comment/:id"
+						element={<Comment />}
+					/>
 				</Routes>
 			</BrowserRouter>
 		</>

@@ -35,9 +35,12 @@ function Home() {
 						<div className="mt-4 mb-4">
 							<Card
 								title={publicacao.titulo}
-								name={publicacao.autor.nome}
+								name={publicacao.autor.username}
 								description={publicacao.descricao}
 								image={publicacao.imagem}
+								button={true}
+								id={publicacao.id}
+								elipse={true}
 							/>
 						</div>
 					</div>
