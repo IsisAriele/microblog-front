@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 
 import PublicationService from "../../services/PublicationService";
+import Button from "../../components/Button";
 
 function Home() {
 	const [publicacoes, setPublicacoes] = useState<any[]>([]);
@@ -27,7 +28,7 @@ function Home() {
 
 	return (
 		<>
-			{localStorage.key != null ? <Header /> : null}
+			<Header />
 
 			{publicacoes.map((publicacao) => {
 				return (
@@ -41,6 +42,7 @@ function Home() {
 								button={true}
 								id={publicacao.id}
 								elipse={true}
+								label={"Detalhar"}
 							/>
 						</div>
 					</div>

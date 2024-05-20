@@ -6,6 +6,7 @@ import Button from "../../components/Button";
 import Header from "../../components/Header";
 import PublishService from "../../services/PublishService";
 import Upload from "../../components/Upload";
+import { useEffect } from "react";
 
 const schema = yup.object().shape({
 	titulo: yup
@@ -36,6 +37,11 @@ function Publish() {
 	});
 
 	const navigate = useNavigate();
+	useEffect(() => {
+		if (!localStorage.getItem("access")) {
+			navigate("/login");
+		}
+	});
 
 	const formData = new FormData();
 	const handleSavePublish = async (data: any) => {
@@ -53,6 +59,10 @@ function Publish() {
 			console.error(error);
 		}
 	};
+
+	// if (localStorage.key == null) {
+	// 	return navigate("login/");
+	// }
 
 	return (
 		<>
