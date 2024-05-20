@@ -100,28 +100,6 @@ function Publish() {
 										control={control}
 									/>
 
-									{/* <div
-										className={`br-input ${errors.imagem !== undefined ? "danger" : ""}`}
-									>
-										<input
-											type="file"
-											{...register("imagem")}
-										/>
-										{errors.imagem !== undefined && (
-											<span
-												className="feedback danger"
-												role="alert"
-												id="danger"
-											>
-												<i
-													className="fas fa-times-circle"
-													aria-hidden="true"
-												></i>
-												{errors.imagem?.message}
-											</span>
-										)}
-									</div> */}
-
 									<div
 										className={` ${errors.descricao !== undefined ? "danger" : ""}`}
 									>

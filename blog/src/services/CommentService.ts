@@ -5,6 +5,8 @@ class CommentService {
         const response= await axiosInstance.get(`publicacao/${id}/comentarios/`);
         return response;
     }
+
+
 }
 
 export default new CommentService();
