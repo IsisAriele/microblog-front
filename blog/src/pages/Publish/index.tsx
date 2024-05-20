@@ -38,7 +38,7 @@ function Publish() {
 	const navigate = useNavigate();
 
 	const formData = new FormData();
-	const handleSavePublish = async (data) => {
+	const handleSavePublish = async (data: any) => {
 		try {
 			console.log(data);
 			formData.append("titulo", data.titulo);
