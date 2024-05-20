@@ -12,57 +12,47 @@ import Button from "../../components/Button";
 import { useForm } from "react-hook-form";
 
 const schema = yup.object().shape({
-	comentario: yup.string(),
+	comentario: yup.string().required("Necessário escrever uma mensagem!"),
 });
 
 function Comment() {
 	const {
 		register,
 		handleSubmit,
-		control,
 		formState: { errors },
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
 
 	const navigate = useNavigate();
-	const formData = new FormData();
-	const handleSaveComment = async (data) => {
-		try {
-			console.log(data);
-			formData.append("comentario", data.titulo);
-
-			const response = await PublishService.criarPublicacao(formData);
-			console.log(response);
-
-			navigate("/");
-		} catch (error) {
-			console.error(error);
-		}
-	};
 
 	const [comentarios, setComentarios] = useState<any[]>([]);
 	const { id } = useParams();
 	const { state } = useLocation();
 	// console.log("coiso", state);
+
 	useEffect(() => {
 		handleData();
 	}, []);
 
-	function formatDate(data: string) {
-		const dataComment = new Date(data);
-
-		const formattedDate = format(dataComment, "dd/MM/yyyy 'às' HH:mm");
-
-		return formattedDate;
-	}
-
-	// const publicacao = {
-	// 	titulo: state.publicacao.title,
-	// 	descricao: state.publicacao.description,
-	// 	nome: state.publicacao.name,
-	// 	imagem: state.publicacao.image,
-	// };
+	const handleSaveComment = async (data: any) => {
+		try {
+			console.log("Aqui", data);
+			const comentario = {
+				publicacao: id,
+				mensagem: data.comentario,
+			};
+			// formData.append("id", data.publicacao);
+			console.log("Aqui5", comentario);
+			const response = await CommentService.postarComentario(comentario);
+			console.log("Aqui2", response);
+			// window.location.reload();
+			handleData();
+			// navigate("/");
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	function handleData() {
 		CommentService.listarComentarios(id)
@@ -74,6 +64,14 @@ function Comment() {
 			.catch((err) => {
 				console.error(err);
 			});
+	}
+
+	function formatDate(data: string) {
+		const dataComment = new Date(data);
+
+		const formattedDate = format(dataComment, "dd/MM/yyyy 'às' HH:mm");
+
+		return formattedDate;
 	}
 
 	return (
@@ -90,42 +88,44 @@ function Comment() {
 
 			<div className="container-lg col-sm-6 col-md-4 col-lg-6">
 				<div className="mt-4 mb-4">
-					<div
-						className={` ${errors.comentario !== undefined ? "danger" : ""}`}
-					>
-						<div className="br-textarea">
-							<label htmlFor="textarea-id1">
-								Escreva o que você achou:
-							</label>
-							<textarea
-								id="textarea-id1"
-								placeholder="Digite seu comentário..."
-								{...register("comentario")}
-							></textarea>
+					<form onSubmit={handleSubmit(handleSaveComment)}>
+						<div
+							className={` ${errors.comentario !== undefined ? "danger" : ""}`}
+						>
+							<div className="br-textarea">
+								<label htmlFor="textarea-id1">
+									Escreva o que você achou:
+								</label>
+								<textarea
+									id="textarea-id1"
+									placeholder="Digite seu comentário..."
+									{...register("comentario")}
+								></textarea>
+							</div>
+							{errors.comentario !== undefined && (
+								<span
+									className="feedback danger"
+									role="alert"
+									id="danger"
+								>
+									<i
+										className="fas fa-times-circle"
+										aria-hidden="true"
+									></i>
+									{errors.comentario?.message}
+								</span>
+							)}
 						</div>
-						{errors.comentario !== undefined && (
-							<span
-								className="feedback danger"
-								role="alert"
-								id="danger"
-							>
-								<i
-									className="fas fa-times-circle"
-									aria-hidden="true"
-								></i>
-								{errors.comentario?.message}
-							</span>
-						)}
-					</div>
+						<div className="mt-4">
+							<Button
+								label="Comentar"
+								className="br-button block primary"
+								type="submit"
+							/>
+						</div>
+					</form>
 				</div>
 
-				<div className="mt-4">
-					<Button
-						label="Comentar"
-						className="br-button block primary"
-						type="submit"
-					/>
-				</div>
 				<p className="h4">Comentários:</p>
 			</div>
 			{comentarios.map((comentario) => {
