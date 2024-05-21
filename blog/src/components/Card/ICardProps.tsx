@@ -10,4 +10,5 @@ export interface ICardProps {
 	button?: boolean;
 	id?: number;
 	elipse?: boolean;
+	label?: string;
 }

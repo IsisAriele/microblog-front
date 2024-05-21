@@ -12,6 +12,7 @@ function Card({
 	button,
 	id,
 	elipse,
+	label,
 }: ICardProps) {
 	const navigate = useNavigate();
 
@@ -59,21 +60,21 @@ function Card({
 						</div>
 					</div>
 
-					<div
-						className="card-content"
-						tabIndex={0}
-					>
-						<div className="mb-4">
-							{image ? (
-								<img
-									src={image}
-									className="image"
-									alt="Avatar"
-								/>
-							) : null}
-						</div>
+					<div className="card-content">
+						{image ? (
+							<div tabIndex={0}>
+								<div className="mb-4">
+									<img
+										src={image}
+										className="image"
+										alt="Avatar"
+									/>
+								</div>
+							</div>
+						) : null}
 						<p>{description}</p>
 					</div>
+
 					{button ? (
 						<div className="card-footer">
 							<div className="d-flex">
@@ -81,7 +82,7 @@ function Card({
 									<Button
 										className="br-button tertiary botao-com-alteracao"
 										action={commentHandleClick}
-										label="Comentar"
+										label={label}
 									></Button>
 								</div>
 							</div>

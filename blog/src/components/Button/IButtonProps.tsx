@@ -2,7 +2,7 @@ export interface IButtonProps {
 	/** Função acionada pelo botão quando clicada */
 	action?: () => void;
 	/** String renderizada no botão */
-	label: string;
+	label?: string;
 	/** Estilização do botão */
 	className: string;
 	/** Icone referente ao botão */

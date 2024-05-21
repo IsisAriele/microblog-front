@@ -12,7 +12,10 @@ import Button from "../../components/Button";
 import { useForm } from "react-hook-form";
 
 const schema = yup.object().shape({
-	comentario: yup.string().required("Necessário escrever uma mensagem!"),
+	comentario: yup
+		.string()
+		.max(400, "O campo deve ter no máximo 400 caracteres!")
+		.required("Necessário escrever uma mensagem!"),
 });
 
 function Comment() {
