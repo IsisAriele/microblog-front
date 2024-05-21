@@ -35,6 +35,7 @@ function Header({ name }: IHeaderProps) {
 	function logout() {
 		setIsAutheticated(false);
 		localStorage.removeItem("access");
+		navigate("/login");
 	}
 
 	return (
